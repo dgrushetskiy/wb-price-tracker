@@ -1,0 +1,35 @@
+
+The database will be initialized with the next data at the app running to test API endpoints :
+
+USERS: [User(id, name, username, email, password, role)]
+Admin(1, 'AdminProfile', 'AdminProfile', 'admin@gmail.com','adminPassword', 'ROLE_ADMIN');
+User1(2, 'User1', 'User1', 'user1@gmail.com','password1', 'ROLE_USER');
+User2(3, 'User2', 'User2', 'user2@gmail.com','password2', 'ROLE_USER');
+User3(4, 'User3', 'User3', 'user3@gmail.com','password3', 'ROLE_USER');
+User4(5, 'User4', 'User4', 'user4@gmail.com','password4', 'ROLE_USER');
+
+ITEMS: [Item(id, code, brand, name)]
+(1, 15061503, 'Ticle', 'Футболка');
+(2, 32956137, 'UZcotton', 'Лонгслив бег'),
+(3, 70455609, 'the nana', 'Брюки'),
+(4, 37955601, 'MOANNA', 'Юбка'),
+(5, 19364027, 'TRENDY TRUTH', 'Рубашка удлиненная'),
+(6, 62880505, 'CALZETTI', 'Сумка'),
+(7, 39404188, 'Ticle', 'Худи'),
+(8, 37110732, 'Paetki', 'Платье'),
+(9, 8118885, 'Riccardo Donati', 'Ремень'),
+(10, 14566666, 'Ravenclo', 'Худи')
+
+USERS_ITEMS:
+User1 : 15061503, 32956137, 70455609, 37955601
+User2 : 15061503, 19364027, 62880505, 39404188
+User3 : 39404188, 37110732, 8118885, 14566666
+User4 : 15061503, 37955601, 39404188, 14566666
+
+PRICES:
+For each item there are 4 price values with update time:
+2022-07-27 12:00:00
+2022-07-28 12:00:00
+2022-07-29 12:00:00
+2022-07-30 12:00:00
+
