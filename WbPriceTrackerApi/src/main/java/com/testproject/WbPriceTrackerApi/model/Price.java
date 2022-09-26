@@ -23,21 +23,15 @@ public class Price {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id", referencedColumnName = "id")
-    @NotNull(message = "The field must not be empty")
+    @NotNull(message = "{field.notNull}")
     private Item item;
 
     @Column(name = "price")
-    @NotNull(message = "The field must not be empty")
+    @NotNull(message = "{field.notNull}")
     private Integer price;
 
     @Column(name = "date")
-    @NotNull(message = "The field must not be empty")
+    @NotNull(message = "{field.notNull}")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime date;
-
-    public Price(Item item, Integer price, LocalDateTime date) {
-        this.item = item;
-        this.price = price;
-        this.date = date;
-    }
 }

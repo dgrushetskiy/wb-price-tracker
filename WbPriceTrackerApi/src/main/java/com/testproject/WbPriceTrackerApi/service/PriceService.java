@@ -2,6 +2,8 @@ package com.testproject.WbPriceTrackerApi.service;
 
 import com.testproject.WbPriceTrackerApi.dto.GetItemPricesDto;
 import com.testproject.WbPriceTrackerApi.dto.PriceFilter;
+import com.testproject.WbPriceTrackerApi.exception.ExceptionMessage;
+import com.testproject.WbPriceTrackerApi.exception.MessageConstant;
 import com.testproject.WbPriceTrackerApi.exception.RequestException;
 import com.testproject.WbPriceTrackerApi.model.Item;
 import com.testproject.WbPriceTrackerApi.model.Price;
@@ -35,7 +37,8 @@ public class PriceService {
             log.info("Fail while getting item prices from the user profile : {}. " +
                     "Item {} not found in user profile", user.getUsername(), code);
 
-            throw new RequestException("Item " + code + " not found in user profile " + user.getUsername(),
+            throw new RequestException(ExceptionMessage.setMessage(MessageConstant.CODE_NOT_FOUND_USERPROFILE,
+                    String.valueOf(code), user.getUsername()),
                     HttpStatus.BAD_REQUEST);
         }
         return priceRepository.findAllByFilter(optionalItem.get().getId(), priceFilter);
@@ -52,7 +55,7 @@ public class PriceService {
                 () -> {
                     log.warn("Fail while adding updated price from parser. Item with code {} wasn't found", price.getItem().getCode());
 
-                    throw new RequestException("Fail while adding updated price from parser. Item with code " + price.getItem().getCode() + " wasn't found",
+                    throw new RequestException(ExceptionMessage.setMessage(MessageConstant.PARSER_FAIL_UPDATED_PRICE, String.valueOf(price.getItem().getCode())),
                             HttpStatus.BAD_REQUEST);
                 }
         );

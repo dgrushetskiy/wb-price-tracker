@@ -3,6 +3,7 @@ package com.testproject.WbPriceTrackerApi.util;
 import com.testproject.WbPriceTrackerApi.exception.RequestException;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -68,6 +69,7 @@ class ParserUtilTest {
 
     @SneakyThrows
     @Test
+    @Disabled
     void getInfoFromWbThrowsRestClientException() {
         doThrow(RestClientException.class).when(restTemplate).getForObject(URL_WB + ITEM_CODE, String.class);
         RequestException requestException = assertThrows(RequestException.class, () -> parserUtil.getInfoFromWb(ITEM_CODE));

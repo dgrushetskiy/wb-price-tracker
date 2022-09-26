@@ -1,5 +1,7 @@
 package com.testproject.WbPriceTrackerApi.validator;
 
+import com.testproject.WbPriceTrackerApi.exception.ExceptionMessage;
+import com.testproject.WbPriceTrackerApi.exception.MessageConstant;
 import com.testproject.WbPriceTrackerApi.model.Item;
 import com.testproject.WbPriceTrackerApi.util.ParserUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -32,20 +34,21 @@ public class ItemValidator implements Validator {
             log.warn("Add Item In Profile Method Called. Fail while parsing JSON {}. Failed to get item {} brand.",
                     json, item.getCode());
 
-            errors.reject("", "Failed to define item brand for code " + item.getCode());
+            errors.reject("", ExceptionMessage.setMessage(MessageConstant.VALIDATION_ITEM_BRAND, String.valueOf(item.getCode())));
+
 
         }
         if (parserUtil.getNameFromWb(json) == null) {
             log.warn("Add Item In Profile Method Called. Fail while parsing JSON {}. Failed to get item {} name.",
                     json, item.getCode());
 
-            errors.reject("", "Failed to define item name for code " + item.getCode());
+            errors.reject("", ExceptionMessage.setMessage(MessageConstant.VALIDATION_ITEM_NAME, String.valueOf(item.getCode())));
         }
         if (parserUtil.getPriceFromWb(json) == null) {
             log.warn("Add Item In Profile Method Called. Fail while parsing JSON {}. Failed to get item {} price.",
                     json, item.getCode());
 
-            errors.reject("", "Failed to define item price for code " + item.getCode());
+            errors.reject("", ExceptionMessage.setMessage(MessageConstant.VALIDATION_ITEM_PRICE, String.valueOf(item.getCode())));
         }
     }
 }

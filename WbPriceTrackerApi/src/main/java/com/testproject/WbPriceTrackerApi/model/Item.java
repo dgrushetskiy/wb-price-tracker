@@ -25,16 +25,16 @@ public class Item {
     private Long id;
 
     @Column(name = "code")
-    @NotNull(message = "The field must not be empty")
-    @Min(value = 2_000_000L, message = "Incorrect code. Item with this code doesn't exist")
+    @NotNull(message = "{field.notNull}")
+    @Min(value = 2_000_000L, message = "{incorrect.code}")
     private Long code;
 
     @Column(name = "brand")
-    @NotNull(message = "The field must not be empty")
+    @NotNull(message = "{field.notNull}")
     private String brand;
 
     @Column(name = "name")
-    @NotNull(message = "The field must not be empty")
+    @NotNull(message = "{field.notNull}")
     private String name;
 
     @ManyToMany(mappedBy = "items")

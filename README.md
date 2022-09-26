@@ -141,7 +141,7 @@ In response you will get JSON like:
   * You must send JWT token in "Authentication" HTTP header with "Bearer " prefix
   * If you try to delete code from another user's profile you will get response with HttpStatus 403 FORBIDDEN
 ```
-DELETE /api/v1/{userId}/items/{itemCode}
+DELETE /api/v1/users/{userId}/items/{itemCode}
 ```
 ### Admin Options
 Admin profile added by default when running the application

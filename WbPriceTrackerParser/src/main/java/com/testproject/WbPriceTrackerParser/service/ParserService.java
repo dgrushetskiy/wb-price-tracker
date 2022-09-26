@@ -6,6 +6,8 @@ import com.jayway.jsonpath.Option;
 import com.testproject.WbPriceTrackerParser.dto.ItemCodeDto;
 import com.testproject.WbPriceTrackerParser.dto.ParserResponse;
 import com.testproject.WbPriceTrackerParser.dto.PriceDto;
+import com.testproject.WbPriceTrackerParser.exception.ExceptionMessage;
+import com.testproject.WbPriceTrackerParser.exception.MessageConstant;
 import com.testproject.WbPriceTrackerParser.exception.RequestException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.AmqpException;
@@ -56,7 +58,7 @@ public class ParserService {
         try {
             ParserResponse jsonResponse = restTemplate.getForObject(URL_APP, ParserResponse.class);
             if (jsonResponse == null || jsonResponse.getCodes() == null) {
-                throw new RequestException("Error while making GET request to " + URL_APP + " to get list of items codes. Response is empty");
+                throw new RequestException(ExceptionMessage.setMessage(MessageConstant.APP_ERR_REQUEST,URL_APP));
             }
             return jsonResponse.getCodes().stream().map(ItemCodeDto::getCode).collect(Collectors.toList());
         } catch (Exception e) {
@@ -71,7 +73,7 @@ public class ParserService {
         } catch (Exception e) {
             log.error("Error while making GET request to {} to get item info for item code {}. " +
                     "Message: {}", URL_WB + code, code, e.getMessage());
-            throw new RequestException("Error while making GET request to " + URL_WB + code + " to get price for item " + code);
+            throw new RequestException(ExceptionMessage.setMessage(MessageConstant.WB_ERR_REQUEST, URL_WB, String.valueOf(code), String.valueOf(code)));
         }
     }
     private String getPriceFromWb(String json) {
@@ -84,7 +86,7 @@ public class ParserService {
         String priceFromWb = getPriceFromWb(json);
         if (priceFromWb == null) {
             log.warn("Fail while parsing JSON {}. Failed to get item {} price.", json, code);
-            throw new RequestException("Failed to define item price for code" + code);
+            throw new RequestException(ExceptionMessage.setMessage(MessageConstant.ERR_DEFINE_PRICE, String.valueOf(code)));
         }
         Integer price = Integer.parseInt(priceFromWb) / 100;
         return Map.of("code", code, "price", price);
@@ -94,7 +96,7 @@ public class ParserService {
         return PriceDto.builder()
                 .code((Long) price.get("code"))
                 .price((Integer) price.get("price"))
-                .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+                .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern(MessageConstant.DATE_TIME_PATTERN)))
                 .build();
     }
 

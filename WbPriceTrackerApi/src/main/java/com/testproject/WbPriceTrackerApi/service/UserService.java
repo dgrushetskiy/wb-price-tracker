@@ -1,5 +1,7 @@
 package com.testproject.WbPriceTrackerApi.service;
 
+import com.testproject.WbPriceTrackerApi.exception.ExceptionMessage;
+import com.testproject.WbPriceTrackerApi.exception.MessageConstant;
 import com.testproject.WbPriceTrackerApi.exception.RequestException;
 import com.testproject.WbPriceTrackerApi.model.Role;
 import com.testproject.WbPriceTrackerApi.model.User;
@@ -36,7 +38,8 @@ public class UserService {
     public User findById(Long id) {
         return userRepository.findById(id).orElseThrow(() -> {
             log.info("Fail while finding user with id {}", id);
-            throw new RequestException("User not found", HttpStatus.BAD_REQUEST);
+            throw new RequestException(ExceptionMessage.setMessage(MessageConstant.USER_NOT_FOUND,
+                    String.valueOf(id)), HttpStatus.BAD_REQUEST);
         });
     }
 

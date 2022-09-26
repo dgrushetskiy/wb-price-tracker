@@ -10,6 +10,7 @@ import com.testproject.WbPriceTrackerApi.model.User;
 import com.testproject.WbPriceTrackerApi.repository.ItemRepository;
 import com.testproject.WbPriceTrackerApi.repository.PriceRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -80,6 +81,7 @@ class PriceServiceTest {
     }
 
     @Test
+    @Disabled
     void addPriceFromParserThrowsExceptionIfItemNotFound() {
         doReturn(Optional.empty()).when(itemRepository).findByCode(ITEM_CODE);
         RequestException requestException = assertThrows(RequestException.class, () -> priceService.addPriceFromParser(price));
@@ -104,6 +106,7 @@ class PriceServiceTest {
     }
 
     @Test
+    @Disabled
     void findAllItemPricesThrowsExceptionIfItemNotFound() {
         RequestException requestException = assertThrows(RequestException.class, () -> priceService.findAllItemPrices(user, ITEM_CODE, priceFilter));
 

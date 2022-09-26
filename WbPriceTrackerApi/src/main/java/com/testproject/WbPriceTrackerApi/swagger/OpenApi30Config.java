@@ -35,9 +35,7 @@ public class OpenApi30Config {
     public OpenAPI customOpenApi() {
         return new OpenAPI().info(new Info().title(API_TITLE)
                         .version(API_VERSION)
-                        .description(API_DESCRIPTION)
-                        .license(new License().name("Apache 2.0")
-                                .url("http://springdoc.org")))
+                        .description(API_DESCRIPTION))
                 .servers(List.of(new Server().url("http://localhost:"+SERVER_PORT)
                         .description("Dev service")));
     }

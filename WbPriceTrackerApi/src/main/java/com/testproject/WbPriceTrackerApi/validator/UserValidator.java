@@ -1,5 +1,7 @@
 package com.testproject.WbPriceTrackerApi.validator;
 
+import com.testproject.WbPriceTrackerApi.exception.ExceptionMessage;
+import com.testproject.WbPriceTrackerApi.exception.MessageConstant;
 import com.testproject.WbPriceTrackerApi.model.User;
 import com.testproject.WbPriceTrackerApi.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -30,12 +32,14 @@ public class UserValidator implements Validator {
         if (userService.findByUsername(user.getUsername()).isPresent()) {
             log.info("Fail while register new user. Username {} already in use", user.getUsername());
 
-            errors.rejectValue("username", "", "Username " + user.getUsername() + " already in use");
+            errors.rejectValue("username", "",
+                    ExceptionMessage.setMessage(MessageConstant.USERNAME_ALREADY_USED, user.getUsername()));
         }
         if (userService.findByEmail(user.getEmail()).isPresent()) {
             log.info("Fail while register new user. Email {} already in use", user.getEmail());
 
-            errors.rejectValue("email", "", "Email " + user.getEmail() + " already in use");
+            errors.rejectValue("email", "",
+                    ExceptionMessage.setMessage(MessageConstant.EMAIL_ALREADY_USED, user.getEmail()));
         }
     }
 }

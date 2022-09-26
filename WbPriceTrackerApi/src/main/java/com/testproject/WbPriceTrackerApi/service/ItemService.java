@@ -1,5 +1,7 @@
 package com.testproject.WbPriceTrackerApi.service;
 
+import com.testproject.WbPriceTrackerApi.exception.ExceptionMessage;
+import com.testproject.WbPriceTrackerApi.exception.MessageConstant;
 import com.testproject.WbPriceTrackerApi.exception.RequestException;
 import com.testproject.WbPriceTrackerApi.model.Item;
 import com.testproject.WbPriceTrackerApi.model.Price;
@@ -49,7 +51,7 @@ public class ItemService {
                                 log.info("Fail while adding item to profile. " +
                                         "User {} is trying to add item {} to profile for the second time", user.getUsername(), existingItem.getCode());
 
-                                throw new RequestException("Item code " + existingItem.getCode() + " has already been added to the tracking list",
+                                throw new RequestException(ExceptionMessage.setMessage(MessageConstant.CODE_ALREADY_ADDED, String.valueOf(existingItem.getCode())),
                                         HttpStatus.BAD_REQUEST);
                             });
                     user.addItem(existingItem);
@@ -88,8 +90,8 @@ public class ItemService {
                                         log.info("Fail while deleting item from the user profile : {}. " +
                                                 "Item {} not found in user profile", user.getUsername(), code);
 
-                                        throw new RequestException("Item " + code + " not found in user profile " + user.getUsername(),
-                                                HttpStatus.BAD_REQUEST);
+                                        throw new RequestException(ExceptionMessage.setMessage(MessageConstant.CODE_NOT_FOUND_USERPROFILE,
+                                                String.valueOf(code), user.getUsername()), HttpStatus.BAD_REQUEST);
                                     }
                             );
                 },
@@ -97,7 +99,8 @@ public class ItemService {
                     log.info("Fail while deleting item from user profile : {}. " +
                             "Item {} not found in Db", user.getUsername(), code);
 
-                    throw new RequestException("Item " + code + " not found", HttpStatus.BAD_REQUEST);
+                    throw new RequestException(ExceptionMessage.setMessage(MessageConstant.CODE_NOT_FOUND,
+                            String.valueOf(code)), HttpStatus.BAD_REQUEST);
                 }
         );
     }

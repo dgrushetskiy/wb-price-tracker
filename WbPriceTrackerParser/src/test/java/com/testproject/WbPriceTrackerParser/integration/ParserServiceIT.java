@@ -40,7 +40,7 @@ public class ParserServiceIT {
 
         assertEquals(EXISTING_CODE, JsonPath.using(conf).parse(json).read("$.data.products[0].id", Long.class));
         assertEquals("Ticle", JsonPath.using(conf).parse(json).read("$.data.products[0].brand", String.class));
-        assertEquals("Футболка", JsonPath.using(conf).parse(json).read("$.data.products[0].name", String.class));
+        assertEquals("Футболка женская оверсайз", JsonPath.using(conf).parse(json).read("$.data.products[0].name", String.class));
 
         assertEquals(EXISTING_CODE, updatedPrice.get("code"));
         assertNotNull(updatedPrice.get("price"));

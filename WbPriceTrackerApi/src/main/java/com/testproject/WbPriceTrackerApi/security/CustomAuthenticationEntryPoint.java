@@ -1,5 +1,7 @@
 package com.testproject.WbPriceTrackerApi.security;
 
+import com.testproject.WbPriceTrackerApi.exception.ExceptionMessage;
+import com.testproject.WbPriceTrackerApi.exception.MessageConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -17,7 +19,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws ServletException {
         log.info("Authentication entry point called. Rejecting access");
         ResponseWriterUtil.writeResponse(response,
-                "Unauthorized: authentication required",
+                ExceptionMessage.setMessage(MessageConstant.UNAUTHORIZED),
                 HttpServletResponse.SC_UNAUTHORIZED);
     }
 }

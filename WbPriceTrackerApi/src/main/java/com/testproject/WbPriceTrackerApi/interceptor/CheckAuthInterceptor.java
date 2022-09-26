@@ -1,5 +1,7 @@
 package com.testproject.WbPriceTrackerApi.interceptor;
 
+import com.testproject.WbPriceTrackerApi.exception.ExceptionMessage;
+import com.testproject.WbPriceTrackerApi.exception.MessageConstant;
 import com.testproject.WbPriceTrackerApi.exception.RequestException;
 import com.testproject.WbPriceTrackerApi.model.Role;
 import com.testproject.WbPriceTrackerApi.security.UserDetailsServiceImpl;
@@ -45,7 +47,7 @@ public class CheckAuthInterceptor implements HandlerInterceptor {
                 getAuthorities().contains(new SimpleGrantedAuthority(Role.ROLE_ADMIN.name()));
         if (!principalUsername.equals(requiredUsername) && !isAdmin) {
             log.info("{} trying to get access to {} profile", principalUsername, requiredUsername);
-            throw new RequestException("You don't have permissions to access the resource", HttpStatus.FORBIDDEN);
+            throw new RequestException(ExceptionMessage.setMessage(MessageConstant.ACCESS_DENIED), HttpStatus.FORBIDDEN);
         }
         return true;
     }

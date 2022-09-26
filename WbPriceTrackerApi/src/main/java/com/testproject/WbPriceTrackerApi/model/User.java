@@ -24,21 +24,22 @@ public class User {
     @Column(name = "id")
     private Long id;
 
-    @NotBlank(message = "The field must not be empty")
-    @Size(min = 2, max = 128, message = "The field must contain from 2 to 128 characters")
+    @NotBlank(message = "{field.notBlank}")
+    @Size(min = 2, max = 128, message = "{field.length}")
     @Column(name = "name")
     private String name;
 
-    @NotBlank(message = "The field must not be empty")
-    @Size(min = 2, max = 128, message = "The field must contain from 2 to 128 characters")
+    @NotBlank(message = "{field.notBlank}")
+    @Size(min = 2, max = 128, message = "{field.length}")
     @Column(name = "username")
     private String username;
 
-    @Pattern(regexp = "^.+@.+(\\.[^.]+)+$", message = "Incorrect email. Email pattern : xx@xx.xx")
+    @Pattern(regexp = "^.+@.+(\\.[^.]+)+$", message = "{email.pattern.message}")
+    @Column(name="email")
     private String email;
 
-    @NotEmpty(message = "The field must not be empty")
-    @Size(min = 5, message = "Password must contain at least 5 characters")
+    @NotBlank(message = "{field.notBlank}")
+    @Size(min = 5, message = "{password.size}")
     @Column(name = "password")
     private String password;
 

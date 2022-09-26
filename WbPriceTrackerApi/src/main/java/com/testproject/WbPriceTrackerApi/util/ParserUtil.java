@@ -3,6 +3,8 @@ package com.testproject.WbPriceTrackerApi.util;
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.Option;
+import com.testproject.WbPriceTrackerApi.exception.ExceptionMessage;
+import com.testproject.WbPriceTrackerApi.exception.MessageConstant;
 import com.testproject.WbPriceTrackerApi.exception.RequestException;
 import lombok.Getter;
 import lombok.Setter;
@@ -49,6 +51,7 @@ public class ParserUtil {
         String brand = getBrand(json);
         String name = getName(json);
         Integer price = getPrice(json);
+
         return Map.of("brand", brand, "name", name, "price", price);
     }
 
@@ -58,7 +61,7 @@ public class ParserUtil {
         } catch (RestClientException e) {
             log.error("Error while making GET request to {} to get item info for item code {}. " +
                     "Message: {}", URL_WB + code, code, e.getMessage());
-            throw new RequestException("Failed to add item code " + code + ". Please try again later",
+            throw new RequestException(ExceptionMessage.setMessage(MessageConstant.PARSER_FAIL_ADDED_CODE, String.valueOf(code)),
                     HttpStatus.BAD_REQUEST);
         }
     }
@@ -73,7 +76,7 @@ public class ParserUtil {
         String brandFromWb = getBrandFromWb(json);
         if (brandFromWb == null) {
             log.warn("Add Item In Profile Method Called. Fail while parsing JSON {}. Failed to get item brand.", json);
-            throw new RequestException("Failed to define item brand", HttpStatus.BAD_REQUEST);
+            throw new RequestException(ExceptionMessage.setMessage(MessageConstant.PARSER_FAIL_DEFINE_BRAND), HttpStatus.BAD_REQUEST);
         }
         return brandFromWb;
     }
@@ -88,7 +91,7 @@ public class ParserUtil {
         String nameFromWb = getNameFromWb(json);
         if (nameFromWb == null) {
             log.warn("Add Item In Profile Method Called. Fail while parsing JSON {}. Failed to get item name.", json);
-            throw new RequestException("Failed to define item name", HttpStatus.BAD_REQUEST);
+            throw new RequestException(ExceptionMessage.setMessage(MessageConstant.PARSER_FAIL_DEFINE_NAME), HttpStatus.BAD_REQUEST);
         }
         return nameFromWb;
     }
@@ -103,7 +106,7 @@ public class ParserUtil {
         String priceFromWb = getPriceFromWb(json);
         if (priceFromWb == null) {
             log.warn("Add Item In Profile Method Called. Fail while parsing JSON {}. Failed to get item price.", json);
-            throw new RequestException("Failed to define item price", HttpStatus.BAD_REQUEST);
+            throw new RequestException(ExceptionMessage.setMessage(MessageConstant.PARSER_FAIL_DEFINE_PRICE), HttpStatus.BAD_REQUEST);
         }
         return Integer.parseInt(priceFromWb) / 100;
     }

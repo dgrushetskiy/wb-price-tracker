@@ -1,6 +1,8 @@
 package com.testproject.WbPriceTrackerApi.security;
 
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.testproject.WbPriceTrackerApi.exception.ExceptionMessage;
+import com.testproject.WbPriceTrackerApi.exception.MessageConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -57,7 +59,7 @@ public class JwtRequestAuthenticationFilter extends OncePerRequestFilter {
             } catch (JWTVerificationException e) {
                 log.info("Invalid JWT Token in Authorization Header : {}", jwt);
                 ResponseWriterUtil.writeResponse(response,
-                        "Invalid JWT Token in Authorization Header",
+                        ExceptionMessage.setMessage(MessageConstant.INVALID_JWT_TOKEN),
                         HttpServletResponse.SC_UNAUTHORIZED);
             }
         }

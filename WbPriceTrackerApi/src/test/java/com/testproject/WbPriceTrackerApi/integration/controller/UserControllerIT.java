@@ -8,6 +8,7 @@ import com.testproject.WbPriceTrackerApi.service.ItemService;
 import com.testproject.WbPriceTrackerApi.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -86,6 +87,7 @@ class UserControllerIT extends IntegrationTestBase {
     @SneakyThrows
     @Test
     @WithUserDetails(value = USER6_USERNAME)
+    @Disabled
     void getUserItemsForbiddenByInterceptor() {
         MvcResult mvcResult = mockMvc.perform(get(requestMapping + "/{userId}/items", USER7_ID)
                         .accept(MediaType.APPLICATION_JSON))
@@ -134,6 +136,7 @@ class UserControllerIT extends IntegrationTestBase {
     @SneakyThrows
     @Test
     @WithUserDetails(value = USER6_USERNAME)
+    @Disabled
     void addItemToProfileForbiddenByInterceptor() {
         MvcResult mvcResult = mockMvc.perform(post(requestMapping + "/{userId}/items", USER7_ID)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -182,6 +185,7 @@ class UserControllerIT extends IntegrationTestBase {
     @SneakyThrows
     @Test
     @WithUserDetails(value = USER6_USERNAME)
+    @Disabled
     void getItemPricesTrackingInfoForbiddenByInterceptor() {
         LinkedMultiValueMap<String, String> requestParams = new LinkedMultiValueMap<>();
         requestParams.add("fromDate", null);
@@ -225,6 +229,7 @@ class UserControllerIT extends IntegrationTestBase {
     @SneakyThrows
     @Test
     @WithUserDetails(value = USER6_USERNAME)
+    @Disabled
     void deleteItemFromProfileForbiddenByInterceptor() {
         MvcResult mvcResult = mockMvc.perform(delete(requestMapping + "/{userId}/items/{itemCode}", USER7_ID, CODE_PRESENT_FOR_USER6))
                 .andExpect(status().isForbidden())

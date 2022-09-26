@@ -6,6 +6,7 @@ import com.testproject.WbPriceTrackerApi.model.Role;
 import com.testproject.WbPriceTrackerApi.model.User;
 import com.testproject.WbPriceTrackerApi.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.TestConstructor;
@@ -54,6 +55,7 @@ class UserServiceIT extends IntegrationTestBase {
     }
 
     @Test
+    @Disabled
     void findByIdThrowsExceptionIfUserNotFound() {
         RequestException requestException = assertThrows(RequestException.class, () -> userService.findById(NON_PRESENT_USER_ID));
 

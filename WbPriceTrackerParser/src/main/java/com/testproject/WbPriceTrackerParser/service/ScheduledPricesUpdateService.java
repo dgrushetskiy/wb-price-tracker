@@ -1,5 +1,6 @@
 package com.testproject.WbPriceTrackerParser.service;
 
+import com.testproject.WbPriceTrackerParser.exception.MessageConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class ScheduledPricesUpdateService {
     @Scheduled(initialDelayString = "${scheduler.initialDelay}", fixedRateString = "${scheduler.fixedRate}")
     public void updateItemsPrices() {
         log.info("Update Items Prices start at: " +
-                LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+                LocalDateTime.now().format(DateTimeFormatter.ofPattern(MessageConstant.DATE_TIME_PATTERN)));
 
         List<Long> codesFromApp = parserService.getListOfItemsCodesFromApp();
 
@@ -34,6 +35,6 @@ public class ScheduledPricesUpdateService {
         }
 
         log.info("Update Items Prices end at: " +
-                LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+                LocalDateTime.now().format(DateTimeFormatter.ofPattern(MessageConstant.DATE_TIME_PATTERN)));
     }
 }

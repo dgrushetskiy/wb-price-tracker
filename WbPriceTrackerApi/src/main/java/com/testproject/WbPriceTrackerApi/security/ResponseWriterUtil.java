@@ -1,5 +1,6 @@
 package com.testproject.WbPriceTrackerApi.security;
 
+import com.testproject.WbPriceTrackerApi.exception.MessageConstant;
 import lombok.SneakyThrows;
 import net.minidev.json.JSONObject;
 
@@ -14,7 +15,7 @@ public class ResponseWriterUtil {
 
         JSONObject json = new JSONObject();
         json.put("message", message);
-        json.put("timestamp", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        json.put("timestamp", LocalDateTime.now().format(DateTimeFormatter.ofPattern(MessageConstant.DATE_TIME_PATTERN)));
 
         response.setContentType("application/json;charset=UTF-8");
         response.setStatus(status);

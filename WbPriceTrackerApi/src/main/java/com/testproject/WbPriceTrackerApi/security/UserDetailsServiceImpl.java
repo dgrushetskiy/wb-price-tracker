@@ -1,5 +1,7 @@
 package com.testproject.WbPriceTrackerApi.security;
 
+import com.testproject.WbPriceTrackerApi.exception.ExceptionMessage;
+import com.testproject.WbPriceTrackerApi.exception.MessageConstant;
 import com.testproject.WbPriceTrackerApi.model.User;
 import com.testproject.WbPriceTrackerApi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username).orElseThrow(
-                () -> new UsernameNotFoundException("User " + username + " not registered"));
+                () -> new UsernameNotFoundException(ExceptionMessage.setMessage(MessageConstant.USER_NOT_REGISTERED, username)));
         return new UserDetailsImpl(user);
     }
 }
